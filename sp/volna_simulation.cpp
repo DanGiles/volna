@@ -17,7 +17,8 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 #include "computeFluxes.h"
 #include "Timestep.h"
 #include "NumericalFluxes.h"
-
+#include "computeFluxes_sph.h"
+#include "NumericalFluxes_sph.h"
 
 
 void spaceDiscretization(op_dat data_in, op_dat data_out, float *minTimestep,
@@ -104,9 +105,9 @@ void spaceDiscretization_sph(op_dat data_in, op_dat data_out, float *minTimestep
                          op_map cellsToCells, op_dat edgeCenters, op_dat cellCenters, op_dat GradientatCell, op_dat q, op_dat lim, float *zmin) {
   {
 
-    {
+        {
     // TO DO: Pre calculate the geometric mesh quantities
-    op_par_loop(computeGradient_sph, "computeGradient", cells,
+    op_par_loop(computeGradient, "computeGradient", cells,
                   op_arg_dat(data_in, -1, OP_ID, 4, "float", OP_READ),
                   op_arg_dat(data_in , 0, cellsToCells, 4, "float", OP_READ),
                   op_arg_dat(data_in , 1, cellsToCells, 4, "float", OP_READ),
@@ -130,7 +131,7 @@ void spaceDiscretization_sph(op_dat data_in, op_dat data_out, float *minTimestep
                 op_arg_dat(cellCenters, -1, OP_ID , 2, "float", OP_READ));
 
     {
-    op_par_loop(computeFluxes, "computeFluxes", edges,
+    op_par_loop(computeFluxes_sph, "computeFluxes_sph", edges,
                   op_arg_dat(data_in, 0, edgesToCells, 4, "float", OP_READ),
                   op_arg_dat(data_in, 1, edgesToCells, 4, "float", OP_READ),
                   op_arg_dat(lim, 0, edgesToCells,  4, "float", OP_READ),
@@ -159,12 +160,14 @@ void spaceDiscretization_sph(op_dat data_in, op_dat data_out, float *minTimestep
                 op_arg_dat(edgeLength, 1, cellsToEdges, 1, "float", OP_READ),
                 op_arg_dat(edgeLength, 2, cellsToEdges, 1, "float", OP_READ),
                 op_arg_dat(cellVolumes, -1, OP_ID, 1, "float", OP_READ),
-               op_arg_gbl(minTimestep,1,"float", OP_MIN));
+                op_arg_gbl(minTimestep,1,"float", OP_MIN));
     }
 
-    op_par_loop(NumericalFluxes, "NumericalFluxes", edges,
+    op_par_loop(NumericalFluxes_sph, "NumericalFluxes_sph", edges,
                 op_arg_dat(data_out, 0, edgesToCells, 4, "float", OP_INC),
                 op_arg_dat(data_out, 1, edgesToCells, 4, "float", OP_INC),
+                op_arg_dat(cellCenters, 0, edgesToCells, 2, "float", OP_READ),
+                op_arg_dat(cellCenters, 1, edgesToCells, 2, "float", OP_READ),
                 op_arg_dat(edgeFluxes, -1, OP_ID, 3, "float", OP_READ),
                 op_arg_dat(bathySource, -1, OP_ID, 4, "float", OP_READ),
                 op_arg_dat(edgeNormals, -1, OP_ID, 2, "float", OP_READ),
