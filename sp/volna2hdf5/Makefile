@@ -29,8 +29,8 @@ MPI_INC = -I$(MPI_INSTALL_PATH)/include
 
 ifdef PTSCOTCH_INSTALL_PATH
 	PTSCOTCH_INC 	= -I$(PTSCOTCH_INSTALL_PATH)/include -DHAVE_PTSCOTCH
-	PTSCOTCH_LIB 	= -L$(PTSCOTCH_INSTALL_PATH)/lib/ -lptscotch \
-	-L$(PTSCOTCH_INSTALL_PATH)/lib/ -lptscotcherr
+	PTSCOTCH_LIB 	= -L$(PTSCOTCH_INSTALL_PATH)/lib -lptscotch \
+	-L$(PTSCOTCH_INSTALL_PATH)/lib -lptscotcherr
 endif
 
 ifeq ($(OP2_COMPILER),gnu)
@@ -68,7 +68,7 @@ ifdef MPI_INSTALL_PATH
             -I$(VOLNA_INSTALL_PATH)/external $(VOLNA_INC) $(HDF5_INC) $(OP2_INC) \
             $(OP2_LIB) $(HDF5_LIB) -lop2_seq -lop2_hdf5 -o volna2hdf5
 else
-	$(CPP) $(CPPFLAGS) volna2hdf5.cpp ../volna_util.cpp $(VOLNA_OBJECTS) $(PTSCOTCH_INC) $(PTSCOTCH_LIB) -I$(VOLNA_INSTALL_PATH) \
+	$(CPP) $(CPPFLAGS) volna2hdf5.cpp ../volna_util.cpp $(VOLNA_OBJECTS) $(PTSCOTCH_INC) $(PTSCOTCH_LIB) -lscotch -I$(VOLNA_INSTALL_PATH) \
             -I$(VOLNA_INSTALL_PATH)/external $(VOLNA_INC) $(HDF5_INC) $(OP2_INC) \
             $(OP2_LIB) $(HDF5_LIB) -lop2_seq -lop2_hdf5 -o volna2hdf5
 endif
