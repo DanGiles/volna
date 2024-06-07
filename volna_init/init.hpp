@@ -3,7 +3,6 @@
 
 #include <iostream>
 
-#include "external/eigen2/Eigen/Array"
 
 // #include "config.hpp"
 // #include "physicalParams.hpp"

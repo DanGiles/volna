@@ -37,7 +37,7 @@ ifeq ($(OP2_COMPILER),gnu)
 	CPP = g++
 	#CPPFLAGS = -O2 -msse4.2 -fPIC -DUNIX -Wall -DOP2 -fopenmp -fpermissive
 	#CPPFLAGS = -g -O0 -msse4.2 -fPIC -DUNIX -Wall -DOP2 -arch x86_64 -fopenmp
-	CPPFLAGS = -O2  -fPIC -DUNIX -Wall -DOP2 -fopenmp -DEIGEN_DONT_VECTORIZE -DEIGEN_DISABLE_UNALIGNED_ARRAY_ASSERT -fpermissive -std=c++11
+	CPPFLAGS = -O2  -fPIC -DUNIX -Wall -DOP2 -fopenmp -DEIGEN_DONT_VECTORIZE -DEIGEN_DISABLE_UNALIGNED_ARRAY_ASSERT -fpermissive -std=c++03
 	MPICPP = $(MPI_INSTALL_PATH)/bin/mpic++
 	MPIFLAGS = $(CCFLAGS)
 else
@@ -68,7 +68,7 @@ ifdef MPI_INSTALL_PATH
             -I$(VOLNA_INSTALL_PATH)/external $(VOLNA_INC) $(HDF5_INC) $(OP2_INC) \
             $(OP2_LIB) $(HDF5_LIB) -lop2_seq -lop2_hdf5 -o volna2hdf5
 else
-	$(CPP) $(CPPFLAGS) volna2hdf5.cpp ../volna_util.cpp $(VOLNA_OBJECTS) $(PTSCOTCH_INC) $(PTSCOTCH_LIB) -lscotch -I$(VOLNA_INSTALL_PATH) \
+	$(CPP) $(CPPFLAGS) volna2hdf5.cpp ../volna_util.cpp $(VOLNA_OBJECTS) $(PTSCOTCH_INC) $(PTSCOTCH_LIB) -I$(VOLNA_INSTALL_PATH) \
             -I$(VOLNA_INSTALL_PATH)/external $(VOLNA_INC) $(HDF5_INC) $(OP2_INC) \
             $(OP2_LIB) $(HDF5_LIB) -lop2_seq -lop2_hdf5 -o volna2hdf5
 endif

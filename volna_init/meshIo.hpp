@@ -8,8 +8,8 @@
 #include <sstream>
 #include <map>
 
-#include "external/eigen2/Eigen/Core"
-#include "external/eigen2/Eigen/StdVector"
+#include "eigen3/Eigen/Core"
+#include "eigen3/Eigen/StdVector"
 
 #include "config.hpp"
 #include "precomputed.hpp"

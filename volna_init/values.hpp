@@ -3,8 +3,7 @@
 
 #include <fstream>
 #include <iostream>
-#include "external/eigen2/Eigen/Core"
-#include "external/eigen2/Eigen/Array"
+#include "eigen3/Eigen/Core"
 
 typedef Eigen::Matrix<RealType, 1, Eigen::Dynamic> ScalarValue;
 

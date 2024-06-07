@@ -7,9 +7,9 @@
 #include <fstream>
 #include <sstream>
 
-#include "external/eigen2/Eigen/StdVector"
-#include "external/eigen2/Eigen/LU"
-#include "external/eigen2/Eigen/Core"
+#include "eigen3/Eigen/StdVector"
+#include "eigen3/Eigen/LU"
+#include "eigen3/Eigen/Core"
 
 #include <queue>
 
