@@ -75,7 +75,7 @@ endif
 #
 
 
-NVCCFLAGS	= -arch=sm_60 -Xptxas=-v -O2 -m64 -g #-G
+NVCCFLAGS	= -arch=sm_80 -Xptxas=-v -O2 -m64 -g #-G
 
 #
 # master to make all versions
@@ -87,7 +87,7 @@ volna: volna.cpp volna_util.cpp volna_event.cpp volna_init.cpp volna_output.cpp 
 ifdef MPI_INSTALL_PATH
 	$(MPICPP) $(CPPFLAGS) $(PARMETIS_INC) $(PTSCOTCH_INC) volna.cpp volna_event.cpp volna_init.cpp volna_output.cpp volna_simulation.cpp volna_util.cpp volna_writeVTK.cpp $(PTSCOTCH_LIB) -lscotch $(PARMETIS_LIB) $(HDF5_INC) $(OP2_INC) $(HDF5_LIB) $(OP2_LIB) -lop2_seq -lop2_hdf5 -o volna
 else
-	$(CPP) $(CPPFLAGS) $(PARMETIS_INC) $(PTSCOTCH_INC) volna.cpp volna_event.cpp volna_init.cpp volna_output.cpp volna_simulation.cpp volna_util.cpp volna_writeVTK.cpp $(PTSCOTCH_LIB) -lscotch $(PARMETIS_LIB) $(HDF5_INC) $(OP2_INC) $(HDF5_LIB) $(OP2_LIB) -lop2_seq -lop2_hdf5 -o volna
+	$(CPP) $(CPPFLAGS) $(PARMETIS_INC) $(PTSCOTCH_INC) volna.cpp volna_event.cpp volna_init.cpp volna_output.cpp volna_simulation.cpp volna_util.cpp volna_writeVTK.cpp $(PTSCOTCH_LIB) $(PARMETIS_LIB) $(HDF5_INC) $(OP2_INC) $(HDF5_LIB) $(OP2_LIB) -lop2_seq -lop2_hdf5 -o volna
 endif
 
 volna_openmp: volna_op.cpp volna_init_op.cpp volna_event.cpp volna_output_op.cpp volna_writeVTK.cpp volna_simulation_op.cpp Makefile
@@ -108,8 +108,8 @@ ifdef MPI_INSTALL_PATH
 	$(PTSCOTCH_INC) $(PTSCOTCH_LIB) -lscotch $(PARMETIS_LIB) $(PARMETIS_INC) $(CUDA_INC) $(OP2_INC) $(HDF5_INC) \
 	$(OP2_LIB) $(CUDA_LIB) -lcudart -lop2_cuda -lop2_hdf5 $(HDF5_LIB) -o volna_cuda
 else
-	$(MPICPP) $(VAR) $(CPPFLAGS) volna_op.cpp volna_simulation_op.cpp volna_event.cpp volna_init_op.cpp volna_output_op.cpp volna_writeVTK.cpp volna_util.cpp cuda/volna_kernels_cu.o \
-	$(PTSCOTCH_INC) $(PTSCOTCH_LIB) -lscotch $(PARMETIS_LIB) $(PARMETIS_INC) $(CUDA_INC) $(OP2_INC) $(HDF5_INC) \
+	$(CPP) $(VAR) $(CPPFLAGS) volna_op.cpp volna_simulation_op.cpp volna_event.cpp volna_init_op.cpp volna_output_op.cpp volna_writeVTK.cpp volna_util.cpp cuda/volna_kernels_cu.o \
+	$(PTSCOTCH_INC) $(PTSCOTCH_LIB) $(CUDA_INC) $(OP2_INC) $(HDF5_INC) \
 	$(OP2_LIB) $(CUDA_LIB) -lcudart -lop2_cuda -lop2_hdf5 $(HDF5_LIB) -o volna_cuda
 endif
 
