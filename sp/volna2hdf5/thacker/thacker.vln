@@ -1,0 +1,18 @@
+Time{end = 10.1}
+
+PhysicalParams { g=9.81 }
+
+NumericalParams { cfl=0.45 }
+
+Mesh "mesh06_bin.msh"
+
+
+Init {istart=0} Bathymetry"init_06/Bathymetry_init.txt"
+Init{istart =0 istep = 0 } Eta"init_06/Eta_init.txt"
+
+OutputSimulation{step= 1 } "thacker_%i.h5"
+OutputTime{istep = 1000} "cout"
+OutputLocation { istep=5 } "gage1.txt" { x=0 y=0 }
+OutputLocation { istep=5 } "gage2.txt" { x=0.5 y=0 }
+OutputLocation { istep=5 } "gage3.txt" { x=-1 y=0 }
+
